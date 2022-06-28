@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <title>Todo List | eurokot</title>
+  </head>
+  <body>
+    <body>
+      <header class="header">
+        <h1>To Do List</h1>
+      </header>
+
+      <!-- ToDo список задач -->
+      <div class="simple-todo">
+        <form id="todo-form">
+          <input
+            id="todo-input"
+            name="todo"
+            type="text"
+            placeholder="What do you need to do?"
+          />
+          <button class="addBtn" title="Add" type="submit">
+            <i class="bx bx-plus-medical add"></i>
+          </button>
+        </form>
+        <div class="tasks-wrapper">
+          <div id="todo-list"></div>
+        </div>
+      </div>
+
+      <script src="action.js"></script>
+    </body>
+  </body>
+</html>
