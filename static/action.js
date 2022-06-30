@@ -25,9 +25,9 @@ const emptyTemplate = () => {
 async function getData() {
   document.getElementById('todo-input').value = '';
   try {
-    const response = await fetch('todoList.json');
+    const response = await fetch('/todos');
     const data = await response.json();
-    if (data) {
+    if (data.length) {
       todoList.innerHTML = '';
       if (data.length > 0) {
         data.forEach((item) => {
@@ -35,10 +35,12 @@ async function getData() {
         });
         todoItemElems = document.querySelectorAll('.item');
       }
+    } else {
+      todoList.innerHTML = '';
+      todoList.innerHTML += emptyTemplate();
     }
   } catch (err) {
-    todoList.innerHTML = '';
-    todoList.innerHTML += emptyTemplate();
+    console.error(err);
   }
 }
 
@@ -71,13 +73,13 @@ document.addEventListener('click', (e) => {
         getData();
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
 
   if (e.target.dataset.edit) {
     const id = e.target.dataset.edit;
-    let newTodo = prompt('New value?');
+    const newTodo = prompt('New value?');
     if (newTodo.length) {
       fetch(`/todos/${id}`, {
         method: 'PUT',
@@ -88,7 +90,7 @@ document.addEventListener('click', (e) => {
           getData();
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
   }
