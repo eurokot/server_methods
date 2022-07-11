@@ -27,18 +27,13 @@ async function getData() {
   try {
     const response = await fetch('/todos');
     const data = await response.json();
-    if (data.length) {
-      todoList.innerHTML = '';
-      if (data.length > 0) {
-        data.forEach((item) => {
-          todoList.innerHTML += createTemplate(item.task, item.id);
-        });
-        todoItemElems = document.querySelectorAll('.item');
-      }
-    } else {
-      todoList.innerHTML = '';
-      todoList.innerHTML += emptyTemplate();
-    }
+    todoList.innerHTML = '';
+
+    return data.length
+      ? data.forEach((item) => {
+          todoList.innerHTML += createTemplate(item.text, item._id);
+        })
+      : (todoList.innerHTML += emptyTemplate());
   } catch (err) {
     console.error(err);
   }
@@ -50,7 +45,7 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   let todo = document.getElementById('todo-input').value;
-  fetch('todos', {
+  return fetch('todos', {
     method: 'POST',
     body: JSON.stringify({ todo: todo }),
     headers: { 'Content-type': 'application/json' },
@@ -66,7 +61,7 @@ form.addEventListener('submit', (e) => {
 document.addEventListener('click', (e) => {
   if (e.target.dataset.delete) {
     const id = e.target.dataset.delete;
-    fetch(`/todos/${id}`, {
+    return fetch(`/todos/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -81,7 +76,7 @@ document.addEventListener('click', (e) => {
     const id = e.target.dataset.edit;
     const newTodo = prompt('New value?');
     if (newTodo.length) {
-      fetch(`/todos/${id}`, {
+      return fetch(`/todos/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ todo: newTodo }),
         headers: { 'Content-type': 'application/json' },

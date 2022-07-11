@@ -11,10 +11,11 @@
   "author": "Artyom Chakhoyan <eurokot_dev@mail.ru>",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.4.4"
   },
   "devDependencies": {
-    "method-override": "^3.0.0",
     "nodemon": "^2.0.16"
   }
 }
